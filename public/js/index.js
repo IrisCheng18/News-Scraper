@@ -9,7 +9,7 @@ $(document).ready(function() {
         // get the response after route '/scrape' happened
         $.get("/scrape", function(responseData) {
             // response is html page of route '/scrape'
-            console.log(responseData);
+            // console.log(responseData);
 
             // Redirect to the html page 'localhost/scrape'
             // location.assign('/scrape');

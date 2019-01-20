@@ -1,0 +1,21 @@
+body {
+    background-color: lightgreen;
+    background-image: url('/images/paper.png');
+}
+
+.navbar-brand {
+    font-size: x-large;
+}
+
+.navbar-nav .nav-item .nav-link,
+.navbar-nav .nav-item .btn-scrape {
+    font-size: small;
+}
+
+.navbar-nav .nav-item .btn-scrape:hover{
+    background-color: lightgreen;
+    color: black;
+    border-color: lightgreen;
+}
+
+

@@ -25,9 +25,38 @@ module.exports = function (app) {
             const $ = cheerio.load(response.data);
             // console.log(response.data);
 
+            $("article").each(function (i, element) {
+                // Save an empty result object
+                let result = {};
+
+                // console.log(`${i}: ${$(this)}`);
+                result.headline = $(this).find('h2').text();
+                result.summary = $(this).find("p").text() || $(this).find('li').text();
+                result.url = $(this).find('a').attr('href');
+                // console.log(`${i}: headline - ${result.headline}`);
+                // console.log(`${i}: summary - ${result.summary}`);
+                // console.log(`${i}: url - ${result.url}`);
+
+                // Create a new Article using the 'result' object built from scraping
+                if(result.summary !== "") {
+                db.Article
+                  .create(result)
+                  .then(function(dbArticle) {
+                    // View the added result in the console
+                    console.log(dbArticle);
+                  })
+                  .catch(function(err) {
+                    // If an error occurred, log it without interrupt the program
+                    console.log(err);
+                  });
+                };
+            });
+
             // Send a message to the client
             res.render('scrape', { content: 'Scrape complete' });
         });
 
     });
+
+    
 };
