@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 
 // Set the port of our application
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // INitialize Express
 const app = express();
