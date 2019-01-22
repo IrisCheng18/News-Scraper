@@ -27,6 +27,7 @@ body {
     padding: 10%;
     color: white;
     font-family: 'Libre Baskerville', serif;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);
 }
 
 h3 {
@@ -45,4 +46,13 @@ h3 {
 
 .span-word {
     font-size: 20pt;
+}
+
+.card-header {
+    font-size: 18pt;
+    padding: 20px;
+}
+
+.card {
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);
 }
