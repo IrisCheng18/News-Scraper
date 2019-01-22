@@ -12,7 +12,7 @@ var db = require('../models');
 module.exports = function (app) {
     // User Handlebars to render the main index.html page
     app.get("/", function (req, res) {
-        res.render('index');
+        res.render('index', {home: true});
     });
 
     // A GET route for scraping the New York Times website
@@ -38,25 +38,42 @@ module.exports = function (app) {
                 // console.log(`${i}: url - ${result.url}`);
 
                 // Create a new Article using the 'result' object built from scraping
-                if(result.summary !== "") {
-                db.Article
-                  .create(result)
-                  .then(function(dbArticle) {
-                    // View the added result in the console
-                    console.log(dbArticle);
-                  })
-                  .catch(function(err) {
-                    // If an error occurred, log it without interrupt the program
-                    console.log(err);
-                  });
+                if (result.summary !== "") {
+                    db.Article
+                        .create(result)
+                        .then(function (dbArticle) {
+                            // View the added result in the console
+                            console.log(dbArticle);
+                        })
+                        .catch(function (err) {
+                            // If an error occurred, log it without interrupt the program
+                            console.log(err);
+                        });
                 };
             });
 
             // Send a message to the client
-            res.render('scrape', { content: 'Scrape complete' });
+            res.render('scrape', { content: 'Scrape complete'});
+
         });
 
     });
 
-    
+    // Route for getting all Articles from the db
+    app.get("/saved", function (req, res) {
+        db.Article.find({})
+            .then(function (dbArticle) {
+                res.render("saved", {articles: dbArticle, home: false});
+            })
+            .catch(function (err) {
+                res.render("saved", {err: err});
+            });
+    });
+
+
+    // Render 404 page for any unmatched routes
+    app.get("*", function(req, res) {
+        res.render("404");
+    });
+
 };

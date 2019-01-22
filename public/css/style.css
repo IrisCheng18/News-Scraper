@@ -8,7 +8,9 @@ body {
 }
 
 .navbar-nav .nav-item .nav-link,
-.navbar-nav .nav-item .btn-scrape {
+.navbar-nav .nav-item .btn-scrape,
+.navbar-nav .nav-item .btn-clear,
+.card .card-header a {
     font-size: small;
 }
 
@@ -18,4 +20,29 @@ body {
     border-color: lightgreen;
 }
 
+.jumbotron {
+    background-image: url('/images/breakfast.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 10%;
+    color: white;
+    font-family: 'Libre Baskerville', serif;
+}
 
+h3 {
+    font-size: 36pt;
+    display: inline-block;
+    word-spacing: 20px;
+}
+
+.span-title {
+    font-size: 48pt;
+}
+
+.p-word {
+    font-size: 16pt;
+}
+
+.span-word {
+    font-size: 20pt;
+}
