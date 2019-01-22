@@ -3,11 +3,33 @@
 <div class="card mb-4" id='article{{_id}}'>
     <div class="card-header bg-primary">
         <a class="text-light" href={{url}} target='_blank' style="font-size: 18pt;">{{headline}}</a>
-        <a href="/saved" class="btn btn-success float-right text-uppercase btn-article-note ml-4" data-id={{_id}} style="background-color: purple;" data-toggle="modal" data-target="#exampleModal">Article Notes</a>
-        <a href="/saved" class="btn btn-success float-right text-uppercase btn-delete-article" data-id={{_id}}>Delete From Saved</a>
+        <a href="/saved" class="btn btn-success float-right text-uppercase btn-article-note ml-4" data-id={{_id}} style="background-color: purple;"
+            data-toggle="modal" data-target="#exampleModal">Article Notes</a>
+        <a href="/saved" class="btn btn-success float-right text-uppercase btn-delete-article" data-id={{_id}}>Delete
+            From Saved</a>
     </div>
     <div class="card-body">
         <p class="card-text">{{summary}}</p>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id={{_id}}>Notes for: {{_id}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                HEHEHHEHHE
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
 </div>
 {{/if}}
@@ -18,23 +40,3 @@
     </div>
 </div>
 {{/each}}
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        HAHAHA
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
