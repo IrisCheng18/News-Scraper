@@ -58,15 +58,12 @@ module.exports = function (app) {
                         .then(function (dbArticle) {
                             // View the added result in the console
                             // console.log(dbArticle);
-                            // result.saved = false;
-                    articles.push(dbArticle);
+                            articles.push(dbArticle);
                         })
                         .catch(function (err) {
                             // If an error occurred, log it without interrupt the program
                             console.log(err);
-                        });
-
-                    
+                        });                    
                 };
             });
 
@@ -77,9 +74,10 @@ module.exports = function (app) {
 
     });
 
-    // Route for getting all the saved Articles from the db
+    // Route for getting all the saved Articles from the db 
+    // After clicking on the link 'Saved Artiles"
     app.get("/saved", function (req, res) {
-        db.Article.find({})
+        db.Article.find({saved: true})
             .then(function (dbArticle) {
                 res.render("saved", { articles: dbArticle, home: false });
             })
@@ -104,9 +102,20 @@ module.exports = function (app) {
             .catch(function (err) {
                 res.json(err);
             });
-
     });
 
+    app.post("/deletearticle", function (req, res) {
+        console.log(req.body.id);
+
+        db.Article.findOneAndUpdate({ _id: req.body.id }, { saved: false }, { new: true })
+            .then(function (dbArticle) {
+                res.json(dbArticle);
+            })
+            .catch(function (err) {
+                res.json(err);
+            });
+
+    });
 
     // Render 404 page for any unmatched routes
     app.get("*", function (req, res) {
