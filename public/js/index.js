@@ -5,6 +5,7 @@ $(document).ready(function () {
     // Trigger the home route '/' and load the saved articles from the database
     $.get('/', function (responseData) {
         // console.log(responseData);
+
     });
 
     // Click on the button 'SCRAPE NEW ARTICLES'
@@ -17,33 +18,42 @@ $(document).ready(function () {
             // response is html page of route '/scrape'
             console.log(responseData);
 
-            responseData.forEach(element => {
-                const divCard = $('<div>').addClass('card mb-4');
+            if (responseData.length > 0) $("#no-articles").remove();
 
-                const aCardHeader = $('<a>').addClass('card-header bg-primary text-light');
-                aCardHeader.text(element.headline);
-                aCardHeader.attr('href', element.url);
-                aCardHeader.attr('target', '_blank');
-                const aButton = $('<a>').addClass('btn btn-success float-right text-uppercase btn-save-article');
-                aButton
-                    .attr('href', '/')
-                    .attr('data-headline', element.headline)
-                    .attr('data-summary', element.summary)
-                    .attr('data-url', element.url);
-                aButton.text('Save Article');
-                aCardHeader.append(aButton);
+            // let i = 0;
+            // responseData.forEach(element => {
+            //     if (element.saved === false) {
+            //         const divCard = $('<div>').addClass('card mb-4');
+            //         divCard.attr('id', `article${i}`)
 
-                const divCardBody = $('<div>').addClass('card-body');
-                const p = $('<p>').addClass('card-text');
-                p.text(element.summary);
-                divCardBody.append(p);
+            //         const aCardHeader = $('<a>').addClass('card-header bg-primary text-light');
+            //         aCardHeader.text(element.headline);
+            //         aCardHeader
+            //             .attr('href', element.url)
+            //             .attr('target', '_blank');
+            //         const aButton = $('<a>').addClass('btn btn-success float-right text-uppercase btn-save-article');
+            //         aButton
+            //             .attr('href', '/')
+            //             .attr('data-id', i)
+            //             .attr('data-headline', element.headline)
+            //             .attr('data-summary', element.summary)
+            //             .attr('data-url', element.url);
+            //         aButton.text('Save Article');
+            //         aCardHeader.append(aButton);
 
-                divCard.append(aCardHeader, divCardBody);
-                $(".article-section").append(divCard);
-            });
+            //         const divCardBody = $('<div>').addClass('card-body');
+            //         const p = $('<p>').addClass('card-text');
+            //         p.text(element.summary);
+            //         divCardBody.append(p);
+
+            //         divCard.append(aCardHeader, divCardBody);
+            //         $(".article-section").append(divCard);
+            //     }
+            // });
 
             // Redirect to the html page 'localhost/scrape'
             // location.assign('/scrape');
+            location.assign('/');
         });
 
     });
@@ -64,18 +74,22 @@ $(document).ready(function () {
         event.preventDefault();
         console.log("btn-save-article clickered");
 
-        const headline = $(this).data('headline');
-        const summary = $(this).data('summary');
-        const url = $(this).data('url');
-        const objUpload = {
-            headline: headline,
-            summary: summary,
-            url: url
-        };
+        // const headline = $(this).data('headline');
+        // const summary = $(this).data('summary');
+        // const url = $(this).data('url');
+        const id = $(this).data('id');
+        console.log(id);
+        // const objUpload = {
+        //     headline: headline,
+        //     summary: summary,
+        //     url: url
+        // };
 
-        $.post('/savearticle', objUpload, function (responseData) {
-            console.log(objUpload);
+        $.post('/savearticle', {id}, function (responseData) {
+            console.log(id);
             console.log(responseData);
+
+            $(`#article${id}`).remove();
         });
     });
 

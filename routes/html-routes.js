@@ -16,13 +16,13 @@ module.exports = function (app) {
     // And get all the scraped articles from db
     app.get("/", function (req, res) {
         db.Article.find({})
-        .then(function (dbArticle) {
-            console.log(dbArticle);
-            res.render("index", { articles: dbArticle, home: true });
-        })
-        .catch(function (err) {
-            res.render("index", { err: err });
-        });
+            .then(function (dbArticle) {
+                // console.log(dbArticle);
+                res.render("index", { articles: dbArticle, home: true });
+            })
+            .catch(function (err) {
+                res.render("index", { err: err });
+            });
 
     });
 
@@ -46,31 +46,33 @@ module.exports = function (app) {
                 result.headline = $(this).find('h2').text();
                 result.summary = $(this).find("p").text() || $(this).find('li').text();
                 result.url = $(this).find('a').attr('href');
+                result.saved
                 if (result.url.includes('https://www.nytimes.com') === false) result.url = 'https://www.nytimes.com' + result.url;
                 // console.log(`${i}: headline - ${result.headline}`);
                 // console.log(`${i}: summary - ${result.summary}`);
                 // console.log(`${i}: url - ${result.url}`);
 
-                if (result.headline !== "" && result.summary !== "" && result.url !== "www.nytimes.com") articles.push(result);
-
                 // Create a new Article using the 'result' object built from scraping
                 if (result.summary !== "") {
-                    db.Article
-                        .create(result)
+                    db.Article.create(result)
                         .then(function (dbArticle) {
                             // View the added result in the console
-                            console.log(dbArticle);
+                            // console.log(dbArticle);
+                            // result.saved = false;
+                    articles.push(dbArticle);
                         })
                         .catch(function (err) {
                             // If an error occurred, log it without interrupt the program
                             console.log(err);
                         });
+
+                    
                 };
             });
 
             // Send a message to the client
             // res.render('scrape', { content: 'Scrape complete', articles: articles});
-            res.json(articles);
+            res.json(true);
         });
 
     });
@@ -86,23 +88,31 @@ module.exports = function (app) {
             });
     });
 
-    app.get("/clear", function(req, res) {
+    app.get("/clear", function (req, res) {
         mongoose.connection.db.dropDatabase();
 
         res.json(true);
     });
 
-    app.post("/savearticle", function(req, res) {
-        console.log(req.body);
-        res.json(true);
+    app.post("/savearticle", function (req, res) {
+        console.log(req.body.id);
+
+        db.Article.findOneAndUpdate({ _id: req.body.id }, { saved: true }, { new: true })
+            .then(function (dbArticle) {
+                res.json(dbArticle);
+            })
+            .catch(function (err) {
+                res.json(err);
+            });
+
     });
 
 
     // Render 404 page for any unmatched routes
-    app.get("*", function(req, res) {
+    app.get("*", function (req, res) {
         res.render("404");
     });
 
-    
+
 
 };

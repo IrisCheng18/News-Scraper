@@ -13,17 +13,20 @@
 <div class="container-fluid article-section">
     {{!-- Added scraped articles here --}}
     {{#each articles}}
-    <div class="card mb-4">
+    {{#unless saved}}
+    <div class="card mb-4" id='article{{_id}}'>
         <div class="card-header bg-primary">
             <a class="text-light" href={{url}} target='_blank' style="font-size: 18pt;">{{headline}}</a>
-            <a href="/" class="btn btn-success float-right text-uppercase">Save Article</a>
+            <a href="/" class="btn btn-success float-right text-uppercase btn-save-article" data-id={{_id}}>Save
+                Article</a>
         </div>
         <div class="card-body">
             <p class="card-text">{{summary}}</p>
         </div>
     </div>
+    {{/unless}}
     {{else}}
-    <div class="card mb-4">
+    <div class="card mb-4" id="no-articles">
         <div class="card-header text-light text-center" style="background-color: darkorange; font-size:14pt; padding: 10px;">
             Uh Oh. Looks like we don't have any new articles.
         </div>
