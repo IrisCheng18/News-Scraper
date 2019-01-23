@@ -104,6 +104,7 @@ module.exports = function (app) {
             });
     });
 
+    // A POST route to delete the article from Saved Articles by setting the 'saved' to false in database 
     app.post("/deletearticle", function (req, res) {
         console.log(req.body.id);
 

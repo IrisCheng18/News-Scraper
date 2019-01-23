@@ -1,4 +1,5 @@
 {{#each articles}}
+
 {{#if saved}}
 <div class="card mb-4" id='article{{_id}}'>
     <div class="card-header bg-primary">
@@ -14,29 +15,36 @@
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id={{_id}}>Notes for: {{_id}}</h5>
+                <h5 class="modal-title" id={{_id}}>Notes for Article: {{_id}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                HEHEHHEHHE
+                <div class="card mb-3" style="box-shadow: none; font-size: smaller;">
+                    <div class="card-body text-center">
+                        No notes for this article yet.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control " id="artical-note" rows="3">New note</textarea>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-success text-uppercase btn-save-note" data-dismiss="modal">Save Notes</button>
             </div>
         </div>
     </div>
 </div>
 {{/if}}
+
 {{else}}
 <div class="card mb-4" id="no-articles">
     <div class="card-header text-light text-center" style="background-color: darkorange; font-size:14pt; padding: 10px;">
-        Uh Oh. Looks like we don't have any new articles.
+        Uh Oh. Looks like we don't have any saved articles.
     </div>
 </div>
 {{/each}}

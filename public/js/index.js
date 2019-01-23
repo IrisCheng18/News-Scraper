@@ -53,7 +53,7 @@ $(document).ready(function () {
     // Click on the button 'Delete From Saved"
     $(document).on("click", ".btn-delete-article", function (event) {
         event.preventDefault();
-        console.log("btn-save-article clickered");
+        console.log("btn-save-article clicked");
 
         const id = $(this).data('id');
         // console.log(id);
@@ -63,6 +63,12 @@ $(document).ready(function () {
 
             $(`#article${id}`).remove();
         });
+    });
+
+    $(document).on("click", ".btn-save-note", function() {
+        console.log("btn-save-note clicked");
+        // $(".modal").removeClass("show");  
+
     });
 
 });
